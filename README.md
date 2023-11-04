@@ -61,6 +61,29 @@ Certifique-se de ter as seguintes ferramentas instaladas antes de executar o apl
 
 8. Acesse o aplicativo em seu navegador em [http://localhost:8000/](http://localhost:8000/).
 
+## Configurando Variáveis De Ambiente
+
+1. Crie o arquivo `.env`:
+    ```shell
+        touch .env
+    ```
+2. Adicione ao arquivo `.env` as variáveis de ambiente:
+    ```shell
+        SECRET_KEY=SECRET_KEY_INSECURE
+    ```
+
+3. Entre no python shell:
+    ```shell
+        python3
+    ```
+
+4. Gerando `SECRET_KEY`:
+    ```shell
+        from django.core.management.utils import get_random_secret_key
+
+        print(get_random_secret_key())
+    ```
+
 ## Uso
 
 - Adicione tarefas à sua lista de afazeres.
