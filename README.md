@@ -68,14 +68,6 @@ Certifique-se de ter as seguintes ferramentas instaladas antes de executar o apl
         python manage.py migrate
     ```
 
-3. Inicie o servidor de desenvolvimento:
-
-    ```shell
-        python manage.py runserver
-    ```
-
-4.  Acesse o aplicativo em seu navegador em [http://localhost:8000/](http://localhost:8000/).
-
 ## Configurando Variáveis De Ambiente
 
 1. Crie o arquivo `.env`:
@@ -111,6 +103,16 @@ Certifique-se de ter as seguintes ferramentas instaladas antes de executar o apl
 
         print(get_random_secret_key())
     ```
+
+
+## Execute o Projeto:
+1. Inicie o servidor de desenvolvimento:
+
+    ```shell
+        python manage.py runserver
+    ```
+
+2.  Acesse o aplicativo em seu navegador em [http://localhost:8000/](http://localhost:8000/).
 
 ## Uso
 
