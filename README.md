@@ -6,8 +6,8 @@ Este é um aplicativo de lista de tarefas simples desenvolvido usando o framewor
 
 Certifique-se de ter as seguintes ferramentas instaladas antes de executar o aplicativo:
 
-- Python 3.x
-- Django
+- Python 3.10
+- Django 4.2
 - Um ambiente virtual (recomendado)
 
 ## Instalação
@@ -42,24 +42,39 @@ Certifique-se de ter as seguintes ferramentas instaladas antes de executar o apl
     ```
 
 5. Instale as dependências do projeto:
+
     ```shell
         pip install -r requirements.txt
     ```
 
+## Configurando banco de dados
+1. Crie o volume:
 
-6. Execute as migrações do banco de dados:
+   ```shell
+    docker run \
+    --name to_do_list_django \
+    -e POSTGRES_USER=user \
+    -e POSTGRES_PASSWORD=postgres \
+    -e POSTGRES_DB=to_do_list \
+    -d \
+    -p 5434:5432 \
+    -v postgres-data:/var/lib/postgresql/data \
+    postgres:latest
+   ```
+
+2. Execute as migrações do banco de dados:
 
     ```shell
         python manage.py migrate
     ```
 
-7. Inicie o servidor de desenvolvimento:
+3. Inicie o servidor de desenvolvimento:
 
     ```shell
         python manage.py runserver
     ```
 
-8. Acesse o aplicativo em seu navegador em [http://localhost:8000/](http://localhost:8000/).
+4.  Acesse o aplicativo em seu navegador em [http://localhost:8000/](http://localhost:8000/).
 
 ## Configurando Variáveis De Ambiente
 
@@ -69,7 +84,20 @@ Certifique-se de ter as seguintes ferramentas instaladas antes de executar o apl
     ```
 2. Adicione ao arquivo `.env` as variáveis de ambiente:
     ```shell
-        SECRET_KEY=SECRET_KEY_INSECURE
+        SECRET_KEY=CHANGE-ME
+
+        # 0 False, 1 True
+        DEBUG=1
+
+        # Comma separated values
+        ALLOWED_HOSTS="127.0.0.1, localhost"
+
+        DB_ENGINE=django.db.backends.postgresql
+        POSTGRES_DB=CHANGE-ME
+        POSTGRES_USER=CHANGE-ME
+        POSTGRES_PASSWORD=CHANGE-ME
+        POSTGRES_HOST=localhost
+        POSTGRES_PORT=5432
     ```
 
 3. Entre no python shell:
@@ -77,7 +105,7 @@ Certifique-se de ter as seguintes ferramentas instaladas antes de executar o apl
         python3
     ```
 
-4. Gerando `SECRET_KEY`:
+4. Gere a `SECRET_KEY`:
     ```shell
         from django.core.management.utils import get_random_secret_key
 
