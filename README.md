@@ -2,6 +2,24 @@
 
 Este é um aplicativo de lista de tarefas simples desenvolvido usando o framework Django. Ele permite que os usuários criem, visualizem, atualizem e excluam tarefas de sua lista de afazeres. É um projeto ideal para aprender os conceitos básicos de desenvolvimento web com Django.
 
+### Índice:
+- [To-Do List](#to-do-list)
+    - [Índice:](#índice)
+  - [Uso](#uso)
+  - [Requisitos](#requisitos)
+  - [Instalação](#instalação)
+  - [Configurando banco de dados](#configurando-banco-de-dados)
+  - [Configurando Variáveis De Ambiente](#configurando-variáveis-de-ambiente)
+  - [Execute o Projeto:](#execute-o-projeto)
+  - [Rotas da API](#rotas-da-api)
+    - [Cria uma nova tarefas:](#cria-uma-nova-tarefas)
+    - [Deleta uma tarefas:](#deleta-uma-tarefas)
+    - [Listar as tarefas do usuário:](#listar-as-tarefas-do-usuário)
+    - [Altera parcialmente uma tarefa:](#altera-parcialmente-uma-tarefa)
+    - [Altera totalmente uma tarefa:](#altera-totalmente-uma-tarefa)
+  - [Contribuição](#contribuição)
+  - [Licença](#licença)
+
 ## Uso
 
 - Adicione tarefas à sua lista de afazeres.
@@ -150,8 +168,8 @@ A seguir estão listadas as rotas da API com os métodos HTTP correspondentes e 
 
 ### Altera parcialmente uma tarefa:
 
-- **Método**: 
-- **Rota**: PATCH
+- **Método**: PATCH
+- **Rota**:
 ```url
   /api/tarefas/pk/?username=name
 ```
