@@ -2,6 +2,12 @@
 
 Este é um aplicativo de lista de tarefas simples desenvolvido usando o framework Django. Ele permite que os usuários criem, visualizem, atualizem e excluam tarefas de sua lista de afazeres. É um projeto ideal para aprender os conceitos básicos de desenvolvimento web com Django.
 
+## Uso
+
+- Adicione tarefas à sua lista de afazeres.
+- Marque as tarefas como concluídas.
+- Atualize ou exclua tarefas conforme necessário.
+
 ## Requisitos
 
 Certifique-se de ter as seguintes ferramentas instaladas antes de executar o aplicativo:
@@ -114,11 +120,51 @@ Certifique-se de ter as seguintes ferramentas instaladas antes de executar o apl
 
 2.  Acesse o aplicativo em seu navegador em [http://localhost:8000/](http://localhost:8000/).
 
-## Uso
+## Rotas da API
+A seguir estão listadas as rotas da API com os métodos HTTP correspondentes e os parâmetros necessários, quando aplicável.
 
-- Adicione tarefas à sua lista de afazeres.
-- Marque as tarefas como concluídas.
-- Atualize ou exclua tarefas conforme necessário.
+### Cria uma nova tarefas:
+- **Método**: POST
+- **Rota**: 
+```url
+  /api/tarefas/?username=name
+```
+- **Descrição**: Cria uma nova tarefa para o usuário com o nome de usuário especificado.
+
+### Deleta uma tarefas:
+- **Método**: DELETE
+- **Rota**: 
+```url
+  /api/tarefas/pk/?username=name
+```
+- **Descrição**: Deleta uma tarefa específico com base no ID (pk) especificado para o usuário com o nome de usuário especificado.
+
+### Listar as tarefas do usuário:
+
+- **Método**: GET
+- **Rota**: 
+```url
+  /api/tarefas/?username=name
+```
+- **Descrição**: Retorna a lista de tarefas do usuário com o nome de usuário especificado.
+
+### Altera parcialmente uma tarefa:
+
+- **Método**: 
+- **Rota**: PATCH
+```url
+  /api/tarefas/pk/?username=name
+```
+- **Descrição**: Realiza uma modificação parcial em uma tarefa com base no ID (pk) da tarefa e no nome do usuário.
+
+### Altera totalmente uma tarefa:
+
+- **Método**: PUT
+- **Rota**:
+```url
+  /api/tarefas/pk/?username=name
+```
+- **Descrição**: Realiza uma modificação completa em uma tarefa com base no ID (pk) da tarefa e no nome do usuário.
 
 ## Contribuição
 
