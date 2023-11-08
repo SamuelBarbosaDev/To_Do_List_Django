@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+
+class Task(models.Model):
+    title = models.CharField(max_length=60)
+    done = models.BooleanField(default=False)
+    describe = models.TextField(max_length=600, blank=True)
