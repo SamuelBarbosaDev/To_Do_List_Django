@@ -12,6 +12,8 @@ Este é um aplicativo de lista de tarefas simples desenvolvido usando o framewor
   - [Configurando Variáveis De Ambiente](#configurando-variáveis-de-ambiente)
   - [Execute o Projeto:](#execute-o-projeto)
   - [Rotas da API](#rotas-da-api)
+    - [Cadastra um novo usuário:](#cadastra-um-novo-usuário)
+    - [Entra com o usuário:](#entra-com-o-usuário)
     - [Cria uma nova tarefas:](#cria-uma-nova-tarefas)
     - [Deleta uma tarefas:](#deleta-uma-tarefas)
     - [Listar as tarefas do usuário:](#listar-as-tarefas-do-usuário)
@@ -140,6 +142,22 @@ Certifique-se de ter as seguintes ferramentas instaladas antes de executar o apl
 
 ## Rotas da API
 A seguir estão listadas as rotas da API com os métodos HTTP correspondentes e os parâmetros necessários, quando aplicável.
+
+### Cadastra um novo usuário:
+- **Método**: POST
+- **Rota**: 
+```url
+  /api/signup/
+```
+- **Descrição**: Registra um novo usuário.
+
+### Entra com o usuário:
+- **Método**: POST
+- **Rota**: 
+```url
+  /api/login/
+```
+- **Descrição**: Faz o login com seu usuário.
 
 ### Cria uma nova tarefas:
 - **Método**: POST
