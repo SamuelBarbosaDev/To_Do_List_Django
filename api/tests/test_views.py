@@ -1,11 +1,35 @@
+from decouple import config
+from ..models import Task
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 
 
+TEST_USER = config('TEST_USER', default='user')
+TEST_PASSWORD = config('TEST_PASSWORD', default='******')
+
+
 class TestBusinessRule(APITestCase):
     def setUp(self):
-        pass
+        # Create a user for authentication:
+        self.user = User.objects.create_user(
+            username=TEST_USER,
+            password=TEST_PASSWORD
+        )
+
+        # Authenticate the user
+        self.client.login(
+            username=TEST_USER,
+            password=TEST_PASSWORD
+        )
+
+        # Creating tasks:
+        self.task = Task.objects.create(
+            id=1,
+            title='Training',
+            done=False,
+            describe='Afternoon training',
+        )
 
     def test_sign_up_a_user(self):
         serializer_user = {
@@ -30,8 +54,8 @@ class TestBusinessRule(APITestCase):
 
     def test_login_a_user(self):
         serializer_login = {
-            'username': 'user',
-            'password': '****',
+            'username': f'{TEST_USER}',
+            'password': f'{TEST_PASSWORD}',
         }
 
         response = self.client.post(
@@ -54,7 +78,7 @@ class TestBusinessRule(APITestCase):
         }
 
         response = self.client.post(
-            path=r'/api/task/?username=user',
+            path=f'/api/task/?username={TEST_USER}',
             data=serializer_task,
             format='json',
         )
@@ -67,7 +91,7 @@ class TestBusinessRule(APITestCase):
 
     def test_list_tasks(self):
         response = self.client.get(
-            path=r'/api/task/?username=user'
+            path=f'/api/task/?username={TEST_USER}'
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -78,14 +102,14 @@ class TestBusinessRule(APITestCase):
         }
 
         response = self.client.patch(
-            path=r'/api/task/0/?username=user',
+            path=f'/api/task/1/?username={TEST_USER}',
             data=serializer_task,
             format='json',
         )
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_204_NO_CONTENT,
+            status.HTTP_200_OK,
             msg='Failed to change task to done.'
         )
 
@@ -97,24 +121,24 @@ class TestBusinessRule(APITestCase):
         }
 
         response = self.client.put(
-            path=r'/api/task/0/?username=user',
+            path=f'/api/task/1/?username={TEST_USER}',
             data=serializer_task,
             format='json',
         )
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_201_CREATED,
+            status.HTTP_200_OK,
             msg='Failed to update the task.'
         )
 
     def test_delete_task(self):
         response = self.client.delete(
-            path=r'/api/task/0/?username=user',
+            path=f'/api/task/1/?username={TEST_USER}/',
         )
 
         self.assertEqual(
             response.status_code,
-            status.HTTP_202_ACCEPTED,
+            status.HTTP_204_NO_CONTENT,
             msg='Failed to delete task.'
         )
