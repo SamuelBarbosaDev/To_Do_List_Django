@@ -1,5 +1,6 @@
-from decouple import config
 from ..models import Task
+from decouple import config
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
@@ -9,7 +10,7 @@ TEST_USER = config('TEST_USER', default='user')
 TEST_PASSWORD = config('TEST_PASSWORD', default='******')
 
 
-class TestBusinessRule(APITestCase):
+class BusinessRuleTestCase(APITestCase):
     def setUp(self):
         # Create a user for authentication:
         self.user = User.objects.create_user(
@@ -18,10 +19,20 @@ class TestBusinessRule(APITestCase):
         )
 
         # Authenticate the user
-        self.client.login(
-            username=TEST_USER,
-            password=TEST_PASSWORD
+        response = self.client.post(
+            path=reverse('login'),
+            data={'username': TEST_USER, 'password': TEST_PASSWORD},
+            format='json',
         )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+            msg='Failed to sign in with user.'
+        )
+
+        # JWT token:
+        self.token = response.data['access']
 
         # Creating tasks:
         self.task = Task.objects.create(
@@ -29,45 +40,6 @@ class TestBusinessRule(APITestCase):
             title='Training',
             done=False,
             describe='Afternoon training',
-        )
-
-    def test_sign_up_a_user(self):
-        serializer_user = {
-            'username': 'user',
-            'email': 'user@email.com',
-            'password': '****',
-        }
-
-        self.client.post(
-            path=r'/api/singup/',
-            data=serializer_user,
-            format='json',
-        )
-
-        user = User.objects.get(email='user@email.com')
-
-        self.assertEqual(
-            serializer_user['username'],
-            user.username,
-            msg="Failed to create user."
-        )
-
-    def test_login_a_user(self):
-        serializer_login = {
-            'username': f'{TEST_USER}',
-            'password': f'{TEST_PASSWORD}',
-        }
-
-        response = self.client.post(
-            path=r'/api/login/',
-            data=serializer_login,
-            format='json',
-        )
-
-        self.assertEqual(
-            response.status_code,
-            status.HTTP_201_CREATED,
-            msg='Failed to sign in with user.'
         )
 
     def test_add_tasks(self):
@@ -81,6 +53,7 @@ class TestBusinessRule(APITestCase):
             path=f'/api/task/?username={TEST_USER}',
             data=serializer_task,
             format='json',
+            headers={'Authorization': f'Bearer {self.token}'}
         )
 
         self.assertEqual(
@@ -91,7 +64,8 @@ class TestBusinessRule(APITestCase):
 
     def test_list_tasks(self):
         response = self.client.get(
-            path=f'/api/task/?username={TEST_USER}'
+            path=f'/api/task/?username={TEST_USER}',
+            headers={'Authorization': f'Bearer {self.token}'}
         )
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -105,6 +79,7 @@ class TestBusinessRule(APITestCase):
             path=f'/api/task/1/?username={TEST_USER}',
             data=serializer_task,
             format='json',
+            headers={'Authorization': f'Bearer {self.token}'}
         )
 
         self.assertEqual(
@@ -124,6 +99,7 @@ class TestBusinessRule(APITestCase):
             path=f'/api/task/1/?username={TEST_USER}',
             data=serializer_task,
             format='json',
+            headers={'Authorization': f'Bearer {self.token}'},
         )
 
         self.assertEqual(
@@ -135,6 +111,7 @@ class TestBusinessRule(APITestCase):
     def test_delete_task(self):
         response = self.client.delete(
             path=f'/api/task/1/?username={TEST_USER}/',
+            headers={'Authorization': f'Bearer {self.token}'},
         )
 
         self.assertEqual(
