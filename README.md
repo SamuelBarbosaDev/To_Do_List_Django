@@ -163,7 +163,7 @@ A seguir estão listadas as rotas da API com os métodos HTTP correspondentes e 
 - **Método**: POST
 - **Rota**: 
 ```url
-  /api/tarefas/?username=name
+  /api/task/?username=name
 ```
 - **Descrição**: Cria uma nova tarefa para o usuário com o nome de usuário especificado.
 
@@ -171,7 +171,7 @@ A seguir estão listadas as rotas da API com os métodos HTTP correspondentes e 
 - **Método**: DELETE
 - **Rota**: 
 ```url
-  /api/tarefas/pk/?username=name
+  /api/task/pk/?username=name
 ```
 - **Descrição**: Deleta uma tarefa específico com base no ID (pk) especificado para o usuário com o nome de usuário especificado.
 
@@ -180,7 +180,7 @@ A seguir estão listadas as rotas da API com os métodos HTTP correspondentes e 
 - **Método**: GET
 - **Rota**: 
 ```url
-  /api/tarefas/?username=name
+  /api/task/?username=name
 ```
 - **Descrição**: Retorna a lista de tarefas do usuário com o nome de usuário especificado.
 
@@ -189,7 +189,7 @@ A seguir estão listadas as rotas da API com os métodos HTTP correspondentes e 
 - **Método**: PATCH
 - **Rota**:
 ```url
-  /api/tarefas/pk/?username=name
+  /api/task/pk/?username=name
 ```
 - **Descrição**: Realiza uma modificação parcial em uma tarefa com base no ID (pk) da tarefa e no nome do usuário.
 
@@ -198,7 +198,7 @@ A seguir estão listadas as rotas da API com os métodos HTTP correspondentes e 
 - **Método**: PUT
 - **Rota**:
 ```url
-  /api/tarefas/pk/?username=name
+  /api/task/pk/?username=name
 ```
 - **Descrição**: Realiza uma modificação completa em uma tarefa com base no ID (pk) da tarefa e no nome do usuário.
 
